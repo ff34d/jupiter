@@ -9,8 +9,8 @@ The project is organized as a **monorepository** with a clear separation between
 ## Repository Structure 🧩
 
 - /packages/core → Core framework modules
+- /packages/core/\_api → Main entry package that bundles core
 - /packages/plugins → Extendable plugins
-- /packages/container → Main entry package that bundles core
 
 ---
 

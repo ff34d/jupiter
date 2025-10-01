@@ -1,0 +1,13 @@
+{
+  "name": "@jupiter/core",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@jupiter-core/component-module": "*"
+  }
+}
