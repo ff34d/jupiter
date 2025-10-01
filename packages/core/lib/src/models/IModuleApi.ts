@@ -1,8 +1,8 @@
 import { UnitStatus } from "./UnitStatus"
 
-export interface IBaseUnit {
+export interface IModuleApi {
   readonly name: string
-  status: UnitStatus
+  getStatus(): UnitStatus
   stop(): void
   run(): void
   reload(): void

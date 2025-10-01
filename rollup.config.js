@@ -8,8 +8,8 @@ import copy from "rollup-plugin-copy"
  */
 const packages = [
   "packages/core/lib",
+  "packages/core/eventBus",
   "packages/core/component",
-  "packages/core/api",
 ]
 
 /*

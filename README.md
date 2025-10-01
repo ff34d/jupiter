@@ -19,7 +19,7 @@ The project is organized as a **monorepository** with a clear separation between
 Each **module** follows a strict structure:
 
 - /lib → Business logic classes. Each class must provide a set of composable functions for export.
-- /types → Interfaces and type definitions.
+- /models → Interfaces and type definitions.
 - /config → Module configuration, constants, and default values.
 - index.ts → Module export.
 
@@ -36,7 +36,7 @@ Each **module** follows a strict structure:
 Each **plugin** follows this structure:
 
 - /lib → Helper classes and the plugin class itself.
-- /types → Interfaces and type definitions.
+- /models → Interfaces and type definitions.
 - /config → Plugin configuration.
 - index.ts → Plugin export.
 

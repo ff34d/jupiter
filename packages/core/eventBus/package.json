@@ -1,5 +1,5 @@
 {
-  "name": "@jupiter-core/api",
+  "name": "@jupiter-core/event-bus",
   "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -9,6 +9,6 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@jupiter-core/component": "^1.0.0"
+    "@jupiter-core/lib": "^1.0.0"
   }
 }
