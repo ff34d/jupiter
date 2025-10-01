@@ -1,6 +1,9 @@
 import { UnitStatus } from "./UnitStatus"
 
 export interface IBaseUnit {
-  status: UnitStatus
   name: string
+  status: UnitStatus
+  stop(): void
+  run(): void
+  reload(): void
 }
