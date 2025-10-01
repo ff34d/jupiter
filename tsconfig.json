@@ -12,10 +12,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "noEmitOnError": true,
     "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": true,
-    "skipDefaultLibCheck": false
+    "skipDefaultLibCheck": false,
+    "types": ["node"]
   },
   "include": ["packages/**/*"],
   "exclude": ["node_modules", "dist"]
