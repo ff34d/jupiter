@@ -9,7 +9,7 @@ import copy from "rollup-plugin-copy"
 const packages = [
   "packages/core/lib",
   "packages/core/component",
-  "packages/core/_api",
+  "packages/core/api",
 ]
 
 /*
