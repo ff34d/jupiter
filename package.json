@@ -1,0 +1,23 @@
+{
+  "name": "jupiter.js",
+  "description": "Lightweight framework for rapid development",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "homepage": "https://github.com/ff34d/jupiter#readme",
+  "workspaces": [
+    "core/*",
+    "plugins/*",
+    "container"
+  ],
+  "author": {
+    "name": "ff34d (Vladimir Volkov)"
+  },
+  "bugs": {
+    "url": "https://github.com/ff34d/jupiter/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ff34d/jupiter.git"
+  }
+}
