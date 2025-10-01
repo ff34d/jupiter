@@ -1,3 +1,3 @@
-import { IBaseUnit } from "./IBaseUnit";
+import { IBaseUnit } from "./IBaseUnit"
 
-export type IModule = IBaseUnit;
+export type IModule = IBaseUnit

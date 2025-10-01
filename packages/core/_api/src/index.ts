@@ -1,3 +1,3 @@
-import componentModule from "@jupiter-core/component";
+import componentModule from "@jupiter-core/component"
 
-console.log(componentModule.name);
+console.log(componentModule.name)

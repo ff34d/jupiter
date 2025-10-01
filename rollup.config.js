@@ -1,7 +1,7 @@
-import typescript from "@rollup/plugin-typescript";
-import fs from "fs";
-import path from "path";
-import copy from "rollup-plugin-copy";
+import typescript from "@rollup/plugin-typescript"
+import fs from "fs"
+import path from "path"
+import copy from "rollup-plugin-copy"
 
 /*
  * Constants
@@ -10,7 +10,7 @@ const packages = [
   "packages/core/lib",
   "packages/core/component",
   "packages/core/_api",
-];
+]
 
 /*
  * Rollup config
@@ -47,7 +47,7 @@ export default packages.map((pkg) => ({
     }),
   ],
   external: (id) => !id.startsWith("."),
-}));
+}))
 
 /*
  * Custom plugins
@@ -56,19 +56,19 @@ function preBuildPlugin(pkg) {
   return {
     name: "pre-build",
     buildStart() {
-      const pkgDir = path.resolve(pkg, "package");
+      const pkgDir = path.resolve(pkg, "package")
 
-      console.log("");
+      console.log("")
 
       if (fs.existsSync(pkgDir)) {
-        console.log(`[PRE-BUILD]: Cleaning ${pkgDir}...`);
-        fs.rmSync(pkgDir, { recursive: true, force: true });
-        console.log("[PRE-BUILD]: Success cleaning ✅");
+        console.log(`[PRE-BUILD]: Cleaning ${pkgDir}...`)
+        fs.rmSync(pkgDir, { recursive: true, force: true })
+        console.log("[PRE-BUILD]: Success cleaning ✅")
       } else {
-        console.log("[PRE-BUILD]: Empty path, skip this ⚠️");
+        console.log("[PRE-BUILD]: Empty path, skip this ⚠️")
       }
 
-      console.log("");
+      console.log("")
     },
-  };
+  }
 }

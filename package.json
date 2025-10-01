@@ -21,10 +21,12 @@
     "url": "https://github.com/ff34d/jupiter.git"
   },
   "scripts": {
-    "build": "rollup -c && yarn install"
+    "build": "rollup -c && yarn install",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.4",
+    "prettier": "^3.6.2",
     "rollup": "^4.52.3",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.2.3",
