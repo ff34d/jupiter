@@ -1,3 +1,7 @@
-export * from "./types";
+import { IModule } from "@jupiter-core/lib";
 
-export const testc = 1;
+const module: IModule = {
+  name: "component",
+};
+
+export default module;

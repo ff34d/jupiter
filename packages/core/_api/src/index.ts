@@ -1,7 +1,3 @@
-import { TestInterface, testc } from "@jupiter-core/component-module";
+import componentModule from "@jupiter-core/component";
 
-export const test: TestInterface = {
-  a: "ss",
-};
-
-console.log(testc);
+console.log(componentModule.name);

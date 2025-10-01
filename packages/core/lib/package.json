@@ -1,5 +1,5 @@
 {
-  "name": "@jupiter-core/component",
+  "name": "@jupiter-core/lib",
   "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -7,8 +7,5 @@
   "files": [
     "dist",
     "LICENSE"
-  ],
-  "dependencies": {
-    "@jupiter-core/lib": "^1.0.0"
-  }
+  ]
 }

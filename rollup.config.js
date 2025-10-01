@@ -6,7 +6,11 @@ import copy from "rollup-plugin-copy";
 /*
  * Constants
  */
-const packages = ["packages/core/component", "packages/core/_api"];
+const packages = [
+  "packages/core/lib",
+  "packages/core/component",
+  "packages/core/_api",
+];
 
 /*
  * Rollup config
