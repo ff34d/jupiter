@@ -43,6 +43,10 @@ export default packages.map((pkg) => ({
           src: path.resolve(pkg, "package.json"),
           dest: path.resolve(pkg, "package"),
         },
+        {
+          src: path.resolve(pkg, "README.md"),
+          dest: path.resolve(pkg, "package"),
+        },
       ],
     }),
   ],
