@@ -8,9 +8,4 @@ export class VirtualDOM implements IVirtualDOM {
   constructor(config: VDOMConfig) {
     this.#root = config.root
   }
-
-  init(): void {
-    void this.#root
-    return
-  }
 }

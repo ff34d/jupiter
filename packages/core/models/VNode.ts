@@ -1,8 +1,3 @@
-/*
- * TODO: This virtual node is tied to HTML.
- * We need to remove the direct connection with the rendering environment.
- */
-
 export interface VNode {
   tag: VNodeTag
   meta: VNodeMeta
