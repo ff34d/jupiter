@@ -8,8 +8,7 @@ The project is organized as a **monorepository** with a clear separation between
 
 ## Repository Structure 🧩
 
-- /packages/core → Core framework modules
-- /packages/core/api → Main entry package that bundles core
+- /packages/core → Core framework package
 - /packages/plugins → Extendable plugins
 
 ---
@@ -26,8 +25,7 @@ Each **module** follows a strict structure:
 **Rules:** 📜
 
 - A module must always return an **object** with functions and parameters.
-- The exported object must implement `BaseModule`.
-- Each module must provide an interface for its return object to ensure type safety.
+- The exported object must implement `ModuleApi`.
 
 ---
 
@@ -42,7 +40,7 @@ Each **plugin** follows this structure:
 
 **Rules:** 📜
 
-- A plugin must always extend `BasePlugin`.
+- A plugin must always extend `PluginApi`.
 - A plugin is simply a **class with methods**, no separate function object is required.
 - In the future, plugins will receive access to the **Core API** in constructors or methods.
 
@@ -52,13 +50,12 @@ Each **plugin** follows this structure:
 
 - Core modules export a **public API**.
 - This API will be injected into plugins, enabling communication between plugins and the framework.
-- The core provides shared services such as `EventBus` and logging.
 
 ---
 
 ## Event System and Logging 📝
 
-- `EventBus` allows modules and plugins to subscribe to and dispatch events.
+- `DebuggerBus` allows modules and plugins to subscribe to and dispatch events.
 - Logging is integrated with the event system to provide transparent, centralized debug information.
 
 ---
