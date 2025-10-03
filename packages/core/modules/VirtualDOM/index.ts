@@ -1,16 +1,14 @@
 import { ModuleApi } from "../../models"
 import { VirtualDOM } from "./lib"
 
-const service = new VirtualDOM()
+const virtualDOMService = new VirtualDOM()
 
-const virtualDOMModule: ModuleApi = {
-  name: service.name,
+export default <ModuleApi>{
+  name: virtualDOMService.name,
   get status() {
-    return service.status
+    return virtualDOMService.status
   },
-  down: () => service.down(),
-  up: () => service.up(),
-  reload: () => service.reload(),
+  down: () => virtualDOMService.down(),
+  up: () => virtualDOMService.up(),
+  reload: () => virtualDOMService.reload(),
 }
-
-export default virtualDOMModule
