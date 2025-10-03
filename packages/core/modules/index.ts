@@ -1,1 +1,1 @@
-export { default as virtualDOMModule } from "./VirtualDOM"
+export * from "./VirtualDOM"

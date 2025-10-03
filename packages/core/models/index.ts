@@ -1,2 +1,12 @@
-export { ModuleStatus } from "./Module"
-export type { IModule, ModuleApi } from "./Module"
+export type { IModule } from "./Module"
+export type {
+  VNode,
+  VNodeAttrs,
+  VNodeAttrsKey,
+  VNodeAttrsValue,
+  VNodeChildren,
+  VNodeComponentTag,
+  VNodeHTMLTag,
+  VNodeMeta,
+  VNodeTag,
+} from "./VNode"

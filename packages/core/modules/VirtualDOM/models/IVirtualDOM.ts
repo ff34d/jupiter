@@ -1,3 +1,7 @@
-import { IModule } from "../../../models"
+import { IModule, VNode } from "../../../models"
+
+export interface VDOMConfig {
+  root: VNode
+}
 
 export type IVirtualDOM = IModule
