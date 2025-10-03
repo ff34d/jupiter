@@ -14,5 +14,8 @@ export default defineConfig([
       parser: tseslint.parser,
       parserOptions: { project: "./tsconfig.json" },
     },
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
   },
 ])

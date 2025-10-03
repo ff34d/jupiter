@@ -4,4 +4,6 @@ export interface CoreApiConfig {
   root: VNode
 }
 
-export type ICoreApi = IModule
+export type ICoreApi = IModule<{
+  mount(selector: string): void
+}>

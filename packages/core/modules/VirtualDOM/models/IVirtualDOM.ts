@@ -4,4 +4,6 @@ export interface VDOMConfig {
   root: VNode
 }
 
-export type IVirtualDOM = IModule
+export type IVirtualDOM = IModule<{
+  readonly root: VNode
+}>
