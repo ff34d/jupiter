@@ -3,7 +3,7 @@ import { VirtualDOM } from "./lib"
 
 const service = new VirtualDOM()
 
-const module: ModuleApi = {
+const virtualDOMModule: ModuleApi = {
   name: service.name,
   get status() {
     return service.status
@@ -13,4 +13,4 @@ const module: ModuleApi = {
   reload: () => service.reload(),
 }
 
-export { module as default }
+export default virtualDOMModule
