@@ -1,78 +1,59 @@
+import resolve from "@rollup/plugin-node-resolve"
 import typescript from "@rollup/plugin-typescript"
 import fs from "fs"
 import path from "path"
 import copy from "rollup-plugin-copy"
 
 /*
- * Constants
+ * Config
  */
-const packages = [
-  "packages/core/lib",
-  "packages/core/eventBus",
-  "packages/core/component",
-]
+const packages = ["packages/core"]
+
+export default packages.map(createPackageConfig)
 
 /*
- * Rollup config
+ * Utils
  */
-export default packages.map((pkg) => ({
-  input: path.resolve(pkg, "src/index.ts"),
-  output: [
-    {
-      file: path.resolve(pkg, "package/dist/index.cjs.js"),
-      format: "cjs",
-      sourcemap: true,
-    },
-    {
-      file: path.resolve(pkg, "package/dist/index.esm.js"),
-      format: "es",
-      sourcemap: true,
-    },
-  ],
-  plugins: [
-    preBuildPlugin(pkg),
-    typescript({
-      tsconfig: path.resolve("./tsconfig.json"),
-      rootDir: path.resolve(pkg, "src"),
-      declarationDir: path.resolve(pkg, "package/dist"),
-    }),
-    copy({
-      targets: [
-        { src: "LICENSE", dest: path.resolve(pkg, "package") },
-        {
-          src: path.resolve(pkg, "package.json"),
-          dest: path.resolve(pkg, "package"),
-        },
-        {
-          src: path.resolve(pkg, "README.md"),
-          dest: path.resolve(pkg, "package"),
-        },
-      ],
-    }),
-  ],
-  external: (id) => !id.startsWith("."),
-}))
+function createPackageConfig(pkg) {
+  return /** @type {import("rollup").RollupOptions} */ ({
+    input: path.resolve(pkg, "index.ts"),
+    output: [
+      {
+        file: path.resolve(pkg, "_/dist/index.cjs.js"),
+        format: "cjs",
+        sourcemap: true,
+      },
+      {
+        file: path.resolve(pkg, "_/dist/index.esm.js"),
+        format: "es",
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      clearDir(pkg),
+      resolve({ extensions: [".ts", ".js"] }),
+      typescript({ tsconfig: path.resolve(pkg, "tsconfig.json") }),
+      copy({
+        targets: [
+          { src: "LICENSE", dest: path.resolve(pkg, "_") },
+          { src: path.resolve(pkg, "package.json"), dest: path.resolve(pkg, "_") },
+          { src: path.resolve(pkg, "README.md"), dest: path.resolve(pkg, "_") },
+        ],
+      }),
+    ],
+  })
+}
 
 /*
  * Custom plugins
  */
-function preBuildPlugin(pkg) {
+function clearDir(pkg) {
   return {
-    name: "pre-build",
+    name: "clear-dir",
     buildStart() {
-      const pkgDir = path.resolve(pkg, "package")
-
-      console.log("")
-
-      if (fs.existsSync(pkgDir)) {
-        console.log(`[PRE-BUILD]: Cleaning ${pkgDir}...`)
-        fs.rmSync(pkgDir, { recursive: true, force: true })
-        console.log("[PRE-BUILD]: Success cleaning ✅")
-      } else {
-        console.log("[PRE-BUILD]: Empty path, skip this ⚠️")
-      }
-
-      console.log("")
+      const pkgDir = path.resolve(pkg, "_")
+      if (!fs.existsSync(pkgDir)) return
+      fs.rmSync(pkgDir, { recursive: true, force: true })
     },
   }
 }

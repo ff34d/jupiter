@@ -1,9 +1,0 @@
-import { UnitStatus } from "./UnitStatus"
-
-export interface IBaseUnit {
-  readonly name: string
-  status: UnitStatus
-  stop(): void
-  run(): void
-  reload(): void
-}

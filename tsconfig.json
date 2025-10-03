@@ -3,20 +3,18 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
+    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "rootDir": ".",
+    "emitDeclarationOnly": false,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
     "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": true,
     "skipDefaultLibCheck": false,
     "types": ["node"]
   },
-  "include": ["packages/**/*"],
-  "exclude": ["node_modules", "dist", "package"]
+  "exclude": ["node_modules", "_", "_/dist"]
 }
