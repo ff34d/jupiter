@@ -1,29 +1,11 @@
-import { CoreApi, VNode } from "jupiter"
+import { CoreApi, createNode } from "jupiter"
+import "./index.css"
 
-const node: VNode = {
-  tag: "div",
-  attrs: {
-    class: "app",
-  },
-  children: [
-    "Hello",
-    {
-      tag: "button",
-      children: ["jupiter"],
-      attrs: {
-        id: "button",
-        onClick: () => console.log("s"),
-      },
-      meta: {
-        displayName: "root-node",
-      },
-    },
-    "ok",
-  ],
-  meta: {
-    displayName: "root-node",
-  },
-}
+const Button = createNode("button", { displayName: "Button" }, { class: "app__button" }, [
+  "Click me!",
+])
+const Title = createNode("h1", { displayName: "Title" }, { class: "app__title" }, ["Hello Friend"])
+const App = createNode("div", { displayName: "App" }, { class: "app" }, [Title, Button])
 
-const app = new CoreApi({ root: node })
+const app = new CoreApi({ root: App })
 app.mount("#app")

@@ -4,13 +4,12 @@ import { IRenderer } from "../models"
 export class Renderer implements IRenderer {
   readonly displayName: string = "renderer"
 
-  render(root: VNode, container: HTMLElement): void {
+  mount(root: VNode, container: HTMLElement): void {
     container.innerHTML = ""
     container.append(this.#createElement(root))
   }
 
   #createElement(vnode: VNode<any>): HTMLElement {
-    /* Vnode tag is component */
     if (typeof vnode.tag !== "string") {
       const calcNode = vnode.tag.render(vnode?.tag?.props)
       return this.#createElement(calcNode)

@@ -16,6 +16,6 @@ export class CoreApi implements ICoreApi {
   mount(selector: string): void {
     const container = document.querySelector(selector) as HTMLElement | undefined
     if (!container) throw new Error(`Container query is failed ${selector}`)
-    this.#renderer.render(this.#virtualDOM.root, container)
+    this.#renderer.mount(this.#virtualDOM.root, container)
   }
 }
