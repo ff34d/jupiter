@@ -36,8 +36,8 @@ function createPackageConfig(pkg) {
       copy({
         targets: [
           { src: "LICENSE", dest: path.resolve(pkg, "_") },
-          { src: path.resolve(pkg, "package.json"), dest: path.resolve(pkg, "_") },
-          { src: path.resolve(pkg, "README.md"), dest: path.resolve(pkg, "_") },
+          { src: `${pkg}/package.json`, dest: path.resolve(pkg, "_") },
+          { src: `${pkg}/README.md`, dest: path.resolve(pkg, "_") },
         ],
       }),
     ],
