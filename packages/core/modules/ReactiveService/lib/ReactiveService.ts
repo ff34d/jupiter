@@ -10,7 +10,7 @@ export class ReactiveService implements IReactiveService {
   }
 
   createStore<T>(value: T): ReactiveProxy<T> {
-    const box = { value }
+    const box: ReactiveProxy<T> = { value, meta: { subscribe: this.subscribe.bind(this) } }
 
     return new Proxy(box, {
       get(target, key) {

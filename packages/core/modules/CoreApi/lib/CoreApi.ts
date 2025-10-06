@@ -1,3 +1,4 @@
+import { VNode } from "../../../models"
 import { IRenderer, Renderer } from "../../Renderer"
 import { IVirtualDOM, VirtualDOM } from "../../VirtualDOM"
 import { CoreApiConfig, ICoreApi } from "../models"
@@ -17,5 +18,9 @@ export class CoreApi implements ICoreApi {
     const container = document.querySelector(selector) as HTMLElement | undefined
     if (!container) throw new Error(`Container query is failed ${selector}`)
     this.#renderer.mount(this.#virtualDOM.root, container)
+  }
+
+  update(vnode: VNode): void {
+    this.#renderer.update(vnode)
   }
 }

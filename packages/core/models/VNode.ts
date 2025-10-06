@@ -1,3 +1,5 @@
+import { ReactiveBinding } from "../modules"
+
 export interface VNode<T = unknown> {
   tag: VNodeTag<T>
   meta: VNodeMeta
@@ -23,10 +25,11 @@ export interface VNodeComponentTag<T = unknown> {
 
 export type VNodeAttrs = Record<VNodeAttrsKey, VNodeAttrsValue>
 export type VNodeAttrsKey = string
-export type VNodeAttrsValue = string | number | VoidFunction
+export type VNodeAttrsValue = string | number | VoidFunction | ReactiveBinding<unknown>
 
-export type VNodeChildren = (VNode | string)[]
+export type VNodeChildren = (VNode | string | ReactiveBinding<unknown>)[]
 
 export interface VNodeMeta {
   displayName: string
+  el?: HTMLElement
 }

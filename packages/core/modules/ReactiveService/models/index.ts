@@ -1,3 +1,4 @@
 export * from "./IReactiveService"
+export * from "./ReactiveBinding"
 export * from "./ReactiveListener"
 export * from "./ReactiveProxy"
