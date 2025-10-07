@@ -4,6 +4,7 @@ export type {
   VNodeAttrs,
   VNodeAttrsKey,
   VNodeAttrsValue,
+  VNodeChild,
   VNodeChildren,
   VNodeComponentTag,
   VNodeHTMLTag,

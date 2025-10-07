@@ -1,4 +1,11 @@
-import { VNode, VNodeAttrs } from "../../../models"
+import {
+  VNode,
+  VNodeAttrs,
+  VNodeAttrsKey,
+  VNodeAttrsValue,
+  VNodeChild,
+  VNodeChildren,
+} from "../../../models"
 import { ReactiveBinding, ReactiveBindingFlag } from "../../ReactiveService/models"
 import { IRenderer } from "../models"
 
@@ -31,84 +38,89 @@ export class Renderer implements IRenderer {
 
   #createElement(vnode: VNode<any>): HTMLElement {
     if (typeof vnode.tag !== "string") {
-      const calcNode = vnode.tag.render(vnode?.tag?.props)
-      return this.#createElement(calcNode)
+      return this.#createElement(vnode.tag.render(vnode?.tag?.props))
     }
 
-    let el: HTMLElement
+    const el = vnode.meta?.el || document.createElement(vnode.tag)
+    if (!vnode.meta.el) vnode.meta.el = el
 
-    if (vnode.meta.el) {
-      el = vnode.meta.el
-    } else {
-      const domElement = document.createElement(vnode.tag)
-      el = domElement
-      vnode.meta.el = domElement
-    }
-
-    if (vnode.attrs) this.#setAttributes(vnode.attrs, el)
-    if (vnode.children) this.#setChildren(vnode, el)
+    this.#setAttributes(vnode.attrs, el)
+    this.#setChildren(vnode.children, el)
 
     return el
   }
 
-  #setAttributes(attrs: VNodeAttrs, el: HTMLElement): void {
+  #setAttributes(attrs: VNodeAttrs | undefined, el: HTMLElement): void {
+    if (!attrs) return
+
     for (const [key, value] of Object.entries(attrs)) {
-      const loweredKey = key.toLocaleLowerCase()
-
-      if (loweredKey.startsWith("on") && typeof value === "function") {
-        el.addEventListener(loweredKey.slice(2), value)
-        continue
-      }
-
-      if (this.#isReactiveObject(value)) {
-        const reactiveObj = value as ReactiveBinding
-        el.setAttribute(key, reactiveObj.get(reactiveObj.source))
-
-        if (!reactiveObj.isSubscribed) {
-          reactiveObj.source.meta.subscribe(() =>
-            el.setAttribute(key, reactiveObj.get(reactiveObj.source))
-          )
-          reactiveObj.isSubscribed = true
-        }
-
-        continue
-      }
-
-      el.setAttribute(loweredKey, String(value))
+      this.#applyAttribute(key, value, el)
     }
   }
 
-  #setChildren(vnode: VNode, el: HTMLElement): void {
-    const children = vnode.children!
+  #applyAttribute(key: VNodeAttrsKey, value: VNodeAttrsValue, el: HTMLElement): void {
+    const loweredKey = key.toLowerCase()
+
+    if (loweredKey.startsWith("on") && typeof value === "function") {
+      el.addEventListener(loweredKey.slice(2), value)
+      return
+    }
+
+    if (this.#isReactiveObject(value)) {
+      const binding = value as ReactiveBinding
+
+      this.#bindReactivity(binding, () => {
+        el.setAttribute(key, String(binding.get(binding.source)))
+      })
+
+      return
+    }
+
+    el.setAttribute(loweredKey, String(value))
+  }
+
+  #bindReactivity(binding: ReactiveBinding, callback: VoidFunction) {
+    callback()
+
+    if (binding.isSubscribed) return
+
+    binding.source.meta.subscribe(callback)
+    binding.isSubscribed = true
+  }
+
+  #setChildren(children: VNodeChildren | undefined, el: HTMLElement): void {
+    if (!children) return
+
     el.innerHTML = ""
 
     for (const child of children) {
-      /* Child is text */
-      if (typeof child === "string") {
-        el.append(document.createTextNode(child))
-        continue
-      }
-
-      /* Child is Reactive value */
-      if (this.#isReactiveObject(child)) {
-        const ch = child as ReactiveBinding
-        const textNode = document.createTextNode(ch.get(ch.source))
-        el.append(textNode)
-
-        if (!ch.isSubscribed) {
-          ch.source.meta.subscribe(() => (textNode.nodeValue = ch.get(ch.source)))
-          ch.isSubscribed = true
-        }
-
-        continue
-      }
-
-      /* Child is virtual node */
-      el.append(this.#createElement(child as VNode))
+      this.#applyChild(child, el)
     }
   }
 
-  #isReactiveObject(obj: any): boolean {
-    return typeof obj === "object" && ("source" as ReactiveBindingFlag) in obj
+  #applyChild(child: VNodeChild, el: HTMLElement) {
+    if (typeof child === "string") {
+      el.append(document.createTextNode(child))
+      return
+    }
+
+    if (this.#isReactiveObject(child)) {
+      const binding = child as ReactiveBinding
+
+      const textNode = document.createTextNode(String(binding.get(binding.source)))
+      el.append(textNode)
+
+      this.#bindReactivity(binding, () => {
+        textNode.nodeValue = String(binding.get(binding.source))
+      })
+
+      return
+    }
+
+    el.append(this.#createElement(child as VNode))
+  }
+
+  #isReactiveObject(obj: unknown): boolean {
+    return obj !== null && typeof obj === "object" && ("source" as ReactiveBindingFlag) in obj
   }
 }

@@ -1,14 +1,16 @@
-import { CoreApi, createNode, proxy } from "jupiter"
+import { bind, CoreApi, createNode, useState } from "jupiter"
 import "./index.css"
 
-const counter = proxy(0)
+const counter = useState(0)
 
-const Button = createNode(
-  "button",
-  { displayName: "Button" },
-  { class: "app__button", onclick: () => counter.value++ },
-  ["Click me!"]
-)
+const Button = () => {
+  return createNode(
+    "button",
+    { displayName: "Button" },
+    { class: "app__button", onclick: () => counter.value++ },
+    ["Click me!"]
+  )
+}
 
 const Title = () => {
   return createNode(
@@ -16,17 +18,19 @@ const Title = () => {
     { displayName: "Title" },
     {
       class: "app__title",
-      id: { source: counter, get: (s) => s.value },
-      counter: { source: counter, get: (s) => s.value },
+      id: bind(counter, (s) => s.value),
+      counter: bind(counter, (s) => s.value),
     },
-    ["Hello Friend: ", { source: counter, get: (s) => s.value }]
+    ["Hello Friend: ", bind(counter, (s) => s.value)]
   )
 }
 
-const App = createNode("div", { displayName: "App" }, { class: "app" }, [
-  { tag: { render: Title }, meta: { displayName: "Title" } },
-  Button,
-])
+const App = () => {
+  return createNode("div", { displayName: "App" }, { class: "app" }, [
+    { tag: { render: Title }, meta: { displayName: "Title" } },
+    { tag: { render: Button }, meta: { displayName: "Button" } },
+  ])
+}
 
-const app = new CoreApi({ root: App })
+const app = new CoreApi({ root: App() })
 app.mount("#app")

@@ -1,12 +1,16 @@
-import { IReactiveService, ReactiveListener, ReactiveProxy } from "../models"
+import { IReactiveRepository, IReactiveService, ReactiveListener, ReactiveProxy } from "../models"
+import { ReactiveRepository } from "./ReactiveRepository"
 
 export class ReactiveService implements IReactiveService {
   readonly displayName = "reactive-service"
-  #listeners = new Set<ReactiveListener>()
+  readonly #reactiveRepository: IReactiveRepository
+
+  constructor() {
+    this.#reactiveRepository = new ReactiveRepository()
+  }
 
   subscribe(fn: ReactiveListener): VoidFunction {
-    this.#listeners.add(fn)
-    return () => this.#listeners.delete(fn)
+    return this.#reactiveRepository.subscribe(fn)
   }
 
   createStore<T>(value: T): ReactiveProxy<T> {
@@ -19,13 +23,9 @@ export class ReactiveService implements IReactiveService {
 
       set: (target, key, val) => {
         target[key as keyof typeof box] = val
-        this.#notify(key, val)
+        this.#reactiveRepository.notify(key, val)
         return true
       },
     })
-  }
-
-  #notify(key: string | symbol, value: unknown): void {
-    this.#listeners.forEach((fn) => fn(key, value))
   }
 }
