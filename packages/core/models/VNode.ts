@@ -1,7 +1,7 @@
 import { ReactiveBinding } from "../modules"
 
-export interface VNode<T = unknown> {
-  tag: VNodeTag<T>
+export interface VNode {
+  tag: VNodeTag
   meta: VNodeMeta
   attrs?: VNodeAttrs
   children?: VNodeChildren
@@ -12,7 +12,7 @@ export interface VNode<T = unknown> {
  * Virtual node types
  * =======================
  */
-export type VNodeTag<T = unknown> = VNodeHTMLTag | VNodeComponentTag<T>
+export type VNodeTag = VNodeHTMLTag | VNodeComponentTag<any>
 export type VNodeHTMLTag = keyof HTMLElementTagNameMap
 
 export interface VNodeComponentTag<T = unknown> {

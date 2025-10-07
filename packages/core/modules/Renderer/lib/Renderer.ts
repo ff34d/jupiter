@@ -17,26 +17,7 @@ export class Renderer implements IRenderer {
     container.append(this.#createElement(root))
   }
 
-  update(vnode: VNode): void {
-    if (!vnode.meta.el) {
-      throw new Error(
-        `The meta property of node does not have a reference to element: ${vnode.meta.displayName}`
-      )
-    }
-
-    const parent = vnode.meta.el.parentElement
-
-    if (!parent) {
-      throw new Error(
-        `Element node does not have a reference to a parent element: ${vnode.meta.displayName}`
-      )
-    }
-
-    const newEl = this.#createElement(vnode)
-    parent.replaceChild(newEl, vnode.meta.el)
-  }
-
-  #createElement(vnode: VNode<any>): HTMLElement {
+  #createElement(vnode: VNode): HTMLElement {
     if (typeof vnode.tag !== "string") {
       return this.#createElement(vnode.tag.render(vnode?.tag?.props))
     }
