@@ -4,7 +4,7 @@ const tsJestTransformCfg = createDefaultEsmPreset().transform
 
 /** @type {import("jest").Config} **/
 export default {
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   transform: {
     ...tsJestTransformCfg,
   },

@@ -6,5 +6,4 @@ export interface CoreApiConfig {
 
 export type ICoreApi = IModule<{
   mount(selector: string): void
-  update(vnode: VNode): void
 }>
