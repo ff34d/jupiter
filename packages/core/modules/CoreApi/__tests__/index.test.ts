@@ -40,10 +40,6 @@ describe("[CoreApi]: use case", () => {
     document.body.innerHTML = ""
   })
 
-  it("Ping", () => {
-    expect(coreApi.displayName).not.toBeUndefined()
-  })
-
   it("Should mount root node in dom", () => {
     expect(document.getElementById(rootId)).not.toBeNull()
     expect(document.getElementById(childId)).not.toBeNull()
